@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import Link from "next/link"
 import { Mail, Phone, MapPin, CheckCircle } from "lucide-react"
+import emailjs from '@emailjs/browser';
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -37,6 +38,8 @@ const formSchema = z.object({
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [emailError, setEmailError] = useState("")
+  const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -51,19 +54,35 @@ export default function ContactPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true)
+    setEmailError("");
 
-    // Simulate form submission
-    setTimeout(() => {
-      console.log(values)
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      form.reset()
+    // Prepare email template parameters
+    const templateParams = {
+      from_name: `${values.firstName} ${values.lastName}`,
+      from_email: values.email,
+      company: values.company,
+      message: values.message,
+      to_email: 'sale@nishat.uk',
+    };
 
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false)
-      }, 5000)
-    }, 1000)
+    // Send the email with EmailJS
+    emailjs.send('service_q7kk6qc', 'template_x8l0s6z', templateParams, 'm4CmCVEOyvktzDMEs')
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+        setIsSubmitting(false);
+        setIsSubmitted(true);
+        form.reset();
+
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error('Email error:', error);
+        setIsSubmitting(false);
+        setEmailError("There was a problem sending your message. Please try again or contact us directly.");
+      });
   }
 
   return (
@@ -79,12 +98,15 @@ export default function ContactPage() {
           <div className="container px-4 md:px-6 relative z-10">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2 max-w-3xl">
-                <div className="inline-flex px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full w-fit mb-4 shadow-md mx-auto">
+                <div 
+                  className="inline-flex px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full w-fit mb-4 shadow-md mx-auto cursor-pointer hover:bg-primary/90 transition-colors"
+                  onClick={() => window.open('https://wa.me/447404449391', '_blank')}
+                >
                   Get in Touch
                 </div>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">Contact Us</h1>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-xl/relaxed">
-                  Reach out to our team for inquiries about our Al Razak products, pricing, and wholesale opportunities.
+                  Reach out to our team for inquiries about our Nishat products, pricing, and wholesale opportunities.
                 </p>
               </div>
             </div>
@@ -94,7 +116,7 @@ export default function ContactPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-12">
-              <div className="flex flex-col justify-center space-y-6">
+              <div className="flex flex-col justify-center space-y-6" id="contactForm">
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Get In Touch</h2>
                   <p className="text-muted-foreground">
@@ -106,13 +128,21 @@ export default function ContactPage() {
                   <Alert className="bg-green-50 border-green-200 mb-4">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <AlertDescription className="text-green-600">
-                      Thank you for your message! We will get back to you shortly.
+                      Thank you for your message! It has been sent to our team at sale@nishat.uk. We will get back to you shortly.
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                {emailError && (
+                  <Alert className="bg-red-50 border-red-200 mb-4">
+                    <AlertDescription className="text-red-600">
+                      {emailError} You can also email us directly at <a href="mailto:sale@nishat.uk" className="underline">sale@nishat.uk</a>
                     </AlertDescription>
                   </Alert>
                 )}
 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" ref={formRef}>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <FormField
                         control={form.control}
@@ -215,8 +245,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <h3 className="font-semibold">Phone</h3>
-                          <a href="tel:+971000000000" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                            +971 00 000 0000
+                          <a href="tel:+447404449391" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                            +44 7404 449391
                           </a>
                         </div>
                       </div>
@@ -226,8 +256,8 @@ export default function ContactPage() {
                         </div>
                         <div>
                           <h3 className="font-semibold">Email</h3>
-                          <a href="mailto:info@nishattrading.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                            info@nishattrading.com
+                          <a href="mailto:sale@nishat.uk" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                            sale@nishat.uk
                           </a>
                         </div>
                       </div>
@@ -282,4 +312,3 @@ export default function ContactPage() {
     </div>
   )
 }
-

@@ -28,10 +28,10 @@ export default function HomePage() {
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-[700px] animate-in fade-in slide-in-from-left-4 duration-700">
-                    <span className="text-shimmer">Premium Quality</span> Products for Global Markets
+                    <span className="text-primary font-extrabold border-b border-primary/30">Premium Quality</span> Products for Global Markets
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl animate-in fade-in slide-in-from-left-4 duration-700 delay-200">
-                    Al Razak Trading specializes in providing high-quality rice, salt, and jewelry to customers worldwide with exceptional service and competitive pricing.
+                    Nishat Trading specializes in providing high-quality rice, salt, and jewelry to customers worldwide with exceptional service and competitive pricing.
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-left-4 duration-700 delay-300">
@@ -73,14 +73,11 @@ export default function HomePage() {
                   <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-primary/20 transition-all duration-500 hover:shadow-primary/20 hover:scale-[1.02]">
                     <Image
                       src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
-                      alt="Premium rice products from Al Razak Trading"
+                      alt="Premium rice products from Nishat Trading"
                       fill
                       priority
                       className="object-cover transition-transform duration-700 hover:scale-110"
                     />
-                  </div>
-                  <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-primary/10 border border-primary/30 backdrop-blur-md rounded-lg shadow-xl flex items-center justify-center p-4 animate-float">
-                    <div className="font-bold text-xl text-shimmer">Al Razak</div>
                   </div>
                 </div>
               </div>
@@ -116,7 +113,7 @@ export default function HomePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Rice Category Card */}
-              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
+              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
@@ -144,7 +141,7 @@ export default function HomePage() {
               </Card>
               
               {/* Salt Category Card */}
-              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
+              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-150">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1517262300305-ac8ac23bc72e?q=80&w=2070&auto=format&fit=crop"
@@ -172,7 +169,7 @@ export default function HomePage() {
               </Card>
               
               {/* Jewelry Category Card */}
-              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-300">
+              <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1573408301851-47cedcca5b36?q=80&w=2069&auto=format&fit=crop"
@@ -214,14 +211,14 @@ export default function HomePage() {
                   Global Excellence in Trading
                 </h2>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl animate-in fade-in slide-in-from-bottom-3 delay-150">
-                  Discover the advantages of partnering with Al Razak Trading for your wholesale needs.
+                  Discover the advantages of partnering with Nishat Trading for your wholesale needs.
                 </p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <Globe className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Global Distribution</h3>
@@ -230,8 +227,8 @@ export default function HomePage() {
                 </p>
               </div>
               
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-150">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-150">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <ShieldCheck className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Quality Assurance</h3>
@@ -240,8 +237,8 @@ export default function HomePage() {
                 </p>
               </div>
               
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <Truck className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Reliable Shipping</h3>
@@ -250,8 +247,8 @@ export default function HomePage() {
                 </p>
               </div>
               
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-250">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-250">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <Award className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Premium Selection</h3>
@@ -260,8 +257,8 @@ export default function HomePage() {
                 </p>
               </div>
               
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-300">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-300">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <CheckCircle className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Certified Products</h3>
@@ -270,8 +267,8 @@ export default function HomePage() {
                 </p>
               </div>
               
-              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-350">
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="bg-background p-6 rounded-lg border border-border shadow-sm flex flex-col items-center text-center hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all duration-100 transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-350">
+                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-100">
                   <LifeBuoy className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Dedicated Support</h3>
@@ -301,7 +298,7 @@ export default function HomePage() {
                 Contact our sales team to discuss your requirements, get pricing information, and arrange international shipping.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in-up delay-300">
-                <Link href="/contact">
+                <Link href={`https://wa.me/447404449391`}>
                   <Button size="lg" className="w-full sm:w-auto group relative overflow-hidden">
                     <span className="relative z-10 flex items-center transition-transform duration-300 group-hover:translate-x-1">
                       Contact Us Now
@@ -309,9 +306,9 @@ export default function HomePage() {
                     <span className="absolute inset-0 bg-primary/90 translate-y-[105%] group-hover:translate-y-0 transition-transform duration-300" />
                   </Button>
                 </Link>
-                <Link href="/products">
+                <Link href={`https://wa.me/447404449391?text=I'm%20interested%20in%20getting%20a%20quote%20for%20your%20products`}>
                   <Button size="lg" variant="outline" className="w-full sm:w-auto shadow-sm hover:shadow hover:border-primary/50 transition-all duration-300">
-                    <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">Browse Products</span>
+                    <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">Get a Quote</span>
                   </Button>
                 </Link>
               </div>
@@ -346,9 +343,15 @@ export default function HomePage() {
         }
         
         @keyframes shimmer {
-          0% { opacity: 0.8; }
-          50% { opacity: 1; }
-          100% { opacity: 0.8; }
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
         }
         
         .animate-shimmer {
@@ -368,18 +371,17 @@ export default function HomePage() {
         }
         
         .text-shimmer {
-          background-image: linear-gradient(
-            45deg,
-            var(--primary) 25%,
-            var(--primary-foreground) 50%,
-            var(--primary) 75%
-          );
-          background-size: 200% auto;
+          position: relative;
+          display: inline-block;
           color: var(--primary);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: text-shimmer 4s linear infinite;
+          font-weight: 800;
+        }
+        
+        /* Dark mode enhancements */
+        @media (prefers-color-scheme: dark) {
+          .text-shimmer {
+            color: #D4AF37;
+          }
         }
       `}</style>
     </div>

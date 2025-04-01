@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Package, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin } from "lucide-react"
+import { Package, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from "lucide-react"
 
 export function MainFooter() {
   return (
@@ -25,10 +25,6 @@ export function MainFooter() {
             <Link href="#" className="text-muted-foreground hover:text-primary">
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-primary">
-              <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
             </Link>
           </div>
         </div>
@@ -64,22 +60,22 @@ export function MainFooter() {
           <ul className="space-y-2">
             <li>
               <Link href="/products#rice" className="text-sm text-muted-foreground hover:text-primary">
-                Al Razak Rice
+                Nishat Rice
               </Link>
             </li>
             <li>
               <Link href="/products#basmati" className="text-sm text-muted-foreground hover:text-primary">
-                Al Razak Basmati Rice
+                Nishat Basmati Rice
               </Link>
             </li>
             <li>
               <Link href="/products#sella" className="text-sm text-muted-foreground hover:text-primary">
-                Al Razak Sella Rice
+                Nishat Sella Rice
               </Link>
             </li>
             <li>
               <Link href="/products#salt" className="text-sm text-muted-foreground hover:text-primary">
-                Al Razak Pink Salt
+                Nishat Pink Salt
               </Link>
             </li>
             <li>
@@ -99,14 +95,14 @@ export function MainFooter() {
             </li>
             <li className="flex items-center gap-2">
               <Phone className="h-5 w-5 text-muted-foreground" />
-              <Link href="tel:+97100000000" className="text-sm text-muted-foreground hover:text-primary">
-                +971 00 000 0000
+              <Link href="tel:+447404449391" className="text-sm text-muted-foreground hover:text-primary">
+                +44 7404 449391
               </Link>
             </li>
             <li className="flex items-center gap-2">
               <Mail className="h-5 w-5 text-muted-foreground" />
-              <Link href="mailto:info@nishattrading.com" className="text-sm text-muted-foreground hover:text-primary">
-                info@nishattrading.com
+              <Link href="mailto:sale@nishat.uk" className="text-sm text-muted-foreground hover:text-primary">
+                sale@nishat.uk
               </Link>
             </li>
           </ul>
@@ -120,4 +116,4 @@ export function MainFooter() {
       </div>
     </footer>
   )
-} 
+}
