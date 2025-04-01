@@ -22,16 +22,15 @@ export default function Home() {
           <div className="container px-4 md:px-6 relative z-10">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
               <div className="flex flex-col justify-center space-y-4">
-                <div className="inline-flex px-3 py-1 text-sm text-primary-foreground bg-primary/10 rounded-full w-fit mb-2 border border-primary/20">
+                <div className="inline-flex px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full w-fit mb-4 shadow-md">
                   Premium Quality Import Export
                 </div>
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                    Premium Rice & Salt <span className="text-primary">Export & Import</span>
+                    Premium Rice, Salt & <span className="text-primary">Gold Jewelry</span>
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    Nishat General Trading Import Export Ltd - Your trusted partner for high-quality rice varieties and
-                    premium salts from around the world.
+                    Nishat General Trading Import Export Ltd - Your trusted partner for high-quality Al Razak rice varieties, premium salts, and fine gold jewelry wholesale from around the world.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -52,10 +51,10 @@ export default function Home() {
                 <div className="relative w-full max-w-[550px] aspect-square">
                   <div className="absolute inset-0 rounded-lg overflow-hidden shadow-xl">
                     <Image
-                      src="/placeholder.svg?height=550&width=550"
+                      src="https://images.unsplash.com/photo-1507099985932-87a4520ed1d5?q=80&w=2069&auto=format&fit=crop"
                       width={550}
                       height={550}
-                      alt="Rice field"
+                      alt="Rice business"
                       className="object-cover h-full w-full"
                       priority
                     />
@@ -108,31 +107,41 @@ export default function Home() {
                 <div className="inline-flex px-3 py-1 text-sm rounded-full bg-muted">Our Products</div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Premium Products</h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  We offer a wide range of high-quality rice varieties and premium salts to meet your business needs.
+                  We offer a wide range of high-quality rice varieties, premium salts, and fine gold and jewelry for wholesale.
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mt-12">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-12">
               {[
                 {
-                  title: "Basmati Rice",
-                  description: "Premium long-grain aromatic rice with a distinct flavor and aroma.",
-                  image: "/placeholder.svg?height=300&width=300",
+                  title: "Al Razak Basmati Rice",
+                  description: "Premium long-grain aromatic basmati rice with a distinct flavor and aroma.",
+                  image: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?q=80&w=2070&auto=format&fit=crop",
                 },
                 {
-                  title: "Jasmine Rice",
-                  description: "Fragrant, long-grain rice with a subtle floral aroma and soft texture.",
-                  image: "/placeholder.svg?height=300&width=300",
+                  title: "Al Razak Sella Rice",
+                  description: "Parboiled rice that maintains its nutritional value and has a better shelf life.",
+                  image: "https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop",
                 },
                 {
-                  title: "Brown Rice",
-                  description: "Whole grain rice with the bran layer intact, offering more nutrients.",
-                  image: "/placeholder.svg?height=300&width=300",
+                  title: "Al Razak Steam Rice",
+                  description: "Perfectly steamed rice with excellent texture and moisture retention.",
+                  image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=2025&auto=format&fit=crop",
                 },
                 {
-                  title: "Himalayan Pink Salt",
+                  title: "Al Razak White Rice",
+                  description: "Clean, polished white rice with versatile cooking applications.",
+                  image: "https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?q=80&w=2064&auto=format&fit=crop",
+                },
+                {
+                  title: "Al Razak Pink Salt",
                   description: "Premium mineral-rich pink salt from the Himalayan mountains.",
-                  image: "/placeholder.svg?height=300&width=300",
+                  image: "https://images.unsplash.com/photo-1517262300305-ac8ac23bc72e?q=80&w=2070&auto=format&fit=crop",
+                },
+                {
+                  title: "Gold & Jewelry Wholesale",
+                  description: "Fine gold jewelry pieces and precious stones for wholesale buyers.",
+                  image: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=2070&auto=format&fit=crop",
                 },
               ].map((product, index) => (
                 <div key={index} className="group relative overflow-hidden rounded-lg border bg-background transition-all hover:shadow-md">
@@ -140,9 +149,11 @@ export default function Home() {
                     <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.title}
-                      width={300}
-                      height={300}
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      width={400}
+                      height={400}
+                      className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      style={{ objectFit: "cover" }}
                     />
                   </div>
                   <div className="p-5">
@@ -176,9 +187,9 @@ export default function Home() {
                     Nishat General Trading <span className="text-primary">Import Export Ltd</span>
                   </h2>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                    With years of experience in the global trade, we have established ourselves as a reliable partner
-                    for businesses worldwide. Our commitment to quality, competitive pricing, and excellent service has
-                    earned us the trust of clients across multiple continents.
+                    With years of experience in global trade, we have established ourselves as a reliable partner
+                    for businesses worldwide. Our exclusive Al Razak rice brand and premium gold jewelry wholesale
+                    have earned us the trust of clients across multiple continents.
                   </p>
                 </div>
                 
@@ -206,10 +217,10 @@ export default function Home() {
                 <div className="relative w-full max-w-[550px] aspect-square">
                   <div className="absolute inset-0 rounded-lg overflow-hidden shadow-xl">
                     <Image
-                      src="/placeholder.svg?height=550&width=550"
+                      src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4?q=80&w=2070&auto=format&fit=crop"
                       width={550}
                       height={550}
-                      alt="Company image"
+                      alt="Global trade business"
                       className="object-cover h-full w-full"
                     />
                   </div>
@@ -235,9 +246,14 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
               {[
                 {
-                  title: "Quality Assurance",
-                  description: "We adhere to the highest quality standards, ensuring every product meets international specifications.",
+                  title: "Premium Al Razak Rice",
+                  description: "Our exclusive Al Razak rice brand offers superior quality in every grain, carefully sourced and processed.",
                   icon: <CheckCircle className="h-8 w-8 text-primary" />
+                },
+                {
+                  title: "Gold & Jewelry Expertise",
+                  description: "We provide fine quality gold and jewelry pieces for wholesale buyers with authentication and certification.",
+                  icon: <Award className="h-8 w-8 text-primary" />
                 },
                 {
                   title: "Reliable Supply Chain",
@@ -258,11 +274,6 @@ export default function Home() {
                   title: "Customer Support",
                   description: "Our dedicated customer service team is always ready to assist with inquiries and needs.",
                   icon: <CheckCircle className="h-8 w-8 text-primary" />
-                },
-                {
-                  title: "Sustainable Practices",
-                  description: "We are committed to sustainable business practices that benefit communities and the environment.",
-                  icon: <Shield className="h-8 w-8 text-primary" />
                 }
               ].map((feature, index) => (
                 <div key={index} className="bg-muted rounded-xl p-6 text-center hover:shadow-md transition-all">

@@ -11,7 +11,7 @@ export function MainFooter() {
             <span className="text-lg font-bold tracking-tight">Nishat Trading</span>
           </div>
           <p className="text-sm text-muted-foreground mb-4">
-            Your trusted partner for premium rice and salt products. Serving businesses worldwide with quality and excellence.
+            Your trusted partner for premium rice, salt products, and fine gold jewelry wholesale. Serving businesses worldwide with quality and excellence.
           </p>
           <div className="flex space-x-3">
             <Link href="#" className="text-muted-foreground hover:text-primary">
@@ -63,23 +63,28 @@ export function MainFooter() {
           <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider">Products</h3>
           <ul className="space-y-2">
             <li>
+              <Link href="/products#rice" className="text-sm text-muted-foreground hover:text-primary">
+                Al Razak Rice
+              </Link>
+            </li>
+            <li>
               <Link href="/products#basmati" className="text-sm text-muted-foreground hover:text-primary">
-                Basmati Rice
+                Al Razak Basmati Rice
               </Link>
             </li>
             <li>
-              <Link href="/products#jasmine" className="text-sm text-muted-foreground hover:text-primary">
-                Jasmine Rice
-              </Link>
-            </li>
-            <li>
-              <Link href="/products#brown" className="text-sm text-muted-foreground hover:text-primary">
-                Brown Rice
+              <Link href="/products#sella" className="text-sm text-muted-foreground hover:text-primary">
+                Al Razak Sella Rice
               </Link>
             </li>
             <li>
               <Link href="/products#salt" className="text-sm text-muted-foreground hover:text-primary">
-                Himalayan Pink Salt
+                Al Razak Pink Salt
+              </Link>
+            </li>
+            <li>
+              <Link href="/products#gold" className="text-sm text-muted-foreground hover:text-primary">
+                Gold & Jewelry
               </Link>
             </li>
           </ul>
@@ -90,7 +95,7 @@ export function MainFooter() {
           <ul className="space-y-3">
             <li className="flex items-start gap-2">
               <MapPin className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
-              <span className="text-sm text-muted-foreground">123 Trading Street, Business District, Dubai, UAE</span>
+              <span className="text-sm text-muted-foreground">71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ</span>
             </li>
             <li className="flex items-center gap-2">
               <Phone className="h-5 w-5 text-muted-foreground" />
