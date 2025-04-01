@@ -38,15 +38,6 @@
         "origin": "Pakistan",
         "packaging": "25kg, 50kg, 100kg bags",
         "id": "al-razak-white-rice"
-      },
-      {
-        "name": "Al Razak Basmati ",
-        "categoryId": "rice",
-        "description": "Clean, polished white rice with versatile cooking applications.",
-        "image": "/basmati.png",
-        "origin": "Pakistan",
-        "packaging": "25kg, 50kg bags",
-        "id": "al-razak-basmati"
       }
     ]
   },
