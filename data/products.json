@@ -1,0 +1,101 @@
+[
+  {
+    "id": "rice",
+    "name": "Al Razak Rice",
+    "products": [
+      {
+        "id": "basmati",
+        "categoryId": "rice",
+        "name": "Al Razak Basmati Rice ",
+        "description": "Premium long-grain aromatic basmati rice with a distinct flavor and aroma.",
+        "image": "/basmati.png",
+        "origin": "Pakistan",
+        "packaging": "25kg, 50kg bags"
+      },
+      {
+        "id": "sella",
+        "categoryId": "rice",
+        "name": "Al Razak Sella Rice",
+        "description": "Parboiled rice that maintains its nutritional value and has a better shelf life.",
+        "image": "/sellarice.png",
+        "origin": "Pakistan",
+        "packaging": "25kg, 50kg bags"
+      },
+      {
+        "id": "steam",
+        "categoryId": "rice",
+        "name": "Al Razak Steam Rice",
+        "description": "Perfectly steamed rice with excellent texture and moisture retention.",
+        "image": "/steamrice.png",
+        "origin": "Pakistan",
+        "packaging": "25kg, 50kg bags"
+      },
+      {
+        "name": "Al Razak White Rice",
+        "categoryId": "rice",
+        "description": "Clean, polished white rice with versatile cooking applications.",
+        "image": "/whiterice.png",
+        "origin": "Pakistan",
+        "packaging": "25kg, 50kg, 100kg bags",
+        "id": "al-razak-white-rice"
+      },
+      {
+        "name": "Al Razak Basmati ",
+        "categoryId": "rice",
+        "description": "Clean, polished white rice with versatile cooking applications.",
+        "image": "/basmati.png",
+        "origin": "Pakistan",
+        "packaging": "25kg, 50kg bags",
+        "id": "al-razak-basmati"
+      }
+    ]
+  },
+  {
+    "id": "salt",
+    "name": "Premium Salt",
+    "products": [
+      {
+        "id": "pink-salt",
+        "categoryId": "salt",
+        "name": "Al Razak Pink Salt",
+        "description": "Premium mineral-rich pink salt from the Himalayan mountains with trace minerals and a distinctive color.",
+        "image": "https://images.unsplash.com/photo-1660650737271-7c292a646922?q=80&w=2070&auto=format&fit=crop",
+        "origin": "Pakistan",
+        "packaging": "1kg, 5kg, 25kg bags"
+      }
+    ]
+  },
+  {
+    "id": "gold",
+    "name": "Gold & Jewelry",
+    "products": [
+      {
+        "id": "gold-jewelry",
+        "categoryId": "gold",
+        "name": "Gold Jewelry Wholesale",
+        "description": "Fine gold jewelry pieces and precious stones for wholesale buyers.",
+        "image": "https://images.unsplash.com/photo-1573408301851-47cedcca5b36?q=80&w=2069&auto=format&fit=crop",
+        "origin": "Various",
+        "packaging": "Custom packaging available"
+      },
+      {
+        "id": "gold-ornaments",
+        "categoryId": "gold",
+        "name": "Gold Ornaments",
+        "description": "Exquisite gold ornaments crafted with precision and attention to detail.",
+        "image": "https://images.unsplash.com/photo-1531995811006-35cb42e1a022?q=80&w=2070&auto=format&fit=crop",
+        "origin": "Various",
+        "packaging": "Custom packaging available"
+      },
+      {
+        "id": "precious-stones",
+        "categoryId": "gold",
+        "name": "Precious Stones",
+        "description": "High-quality precious stones and gems for jewelry manufacturing.",
+        "image": "https://images.unsplash.com/photo-1511797663913-0fa4736d0d9f?q=80&w=2069&auto=format&fit=crop",
+        "origin": "Various",
+        "packaging": "Secure packaging with certification"
+      }
+    ]
+  }
+]
