@@ -17,7 +17,7 @@ export default function ProductsPage() {
           id: "basmati",
           name: "Al Razak Basmati Rice",
           description: "Premium long-grain aromatic basmati rice with a distinct flavor and aroma.",
-          image: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=2065&auto=format&fit=crop",
+          image: "/basmati.png",
           origin: "Pakistan",
           packaging: "25kg, 50kg bags",
         },
@@ -131,14 +131,20 @@ export default function ProductsPage() {
                   <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {category.products.map((product) => (
                       <Card key={product.id} className="overflow-hidden border border-border/50 transition-all hover:shadow-md">
-                        <div className="relative aspect-square w-full">
+                        <div className={`relative aspect-square w-full ${
+                          category.id === "rice" 
+                            ? "bg-gradient-to-br from-orange-300 via-amber-200 to-orange-300" 
+                            : category.id === "salt"
+                            ? "bg-gradient-to-br from-pink-300 via-rose-200 to-pink-300"
+                            : "bg-gradient-to-br from-amber-300 via-yellow-200 to-amber-300"
+                        }`}>
                           <Image
                             src={product.image || "/placeholder.svg"}
                             alt={product.name}
                             fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="object-cover transition-transform hover:scale-105"
-                            style={{ objectFit: "cover" }}
+                            className="object-contain p-4 transition-transform hover:scale-105"
+                            style={{ objectFit: "contain" }}
                           />
                         </div>
                         <CardContent className="p-6">
