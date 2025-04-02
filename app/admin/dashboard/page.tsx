@@ -5,15 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Package, Plus, RefreshCw } from "lucide-react";
-import { Product } from "@/lib/products";
+import { Package, Plus, RefreshCw, FolderTree } from "lucide-react";
+import { Product, Category } from "@/lib/products";
 
 export default function DashboardPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProducts = async () => {
+  const fetchData = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -30,16 +31,17 @@ export default function DashboardPage() {
 
       const data = await response.json();
       setProducts(data.products);
+      setCategories(data.categories);
     } catch (err) {
-      console.error("Error fetching products:", err);
-      setError("Failed to load products. Please try again.");
+      console.error("Error fetching data:", err);
+      setError("Failed to load data. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchData();
   }, []);
 
   const getProductCountByCategory = () => {
@@ -63,7 +65,7 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <div className="flex items-center gap-2">
-          <Button onClick={fetchProducts} variant="outline" size="sm">
+          <Button onClick={fetchData} variant="outline" size="sm">
             <RefreshCw className="mr-2 h-4 w-4" />
             Refresh
           </Button>
@@ -86,6 +88,15 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium">Categories</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{categories.length}</div>
+          </CardContent>
+        </Card>
+        
         {Object.entries(categoryCounts).map(([categoryId, count]) => (
           <Card key={categoryId}>
             <CardHeader className="pb-2">
@@ -98,27 +109,84 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Recent Products</CardTitle>
-            <CardDescription>
-              View your most recent products
-            </CardDescription>
+            <CardTitle>Categories</CardTitle>
+            <CardDescription>Manage your product categories</CardDescription>
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="flex items-center justify-center p-8">
-                <RefreshCw className="h-8 w-8 animate-spin text-muted-foreground" />
+              <div className="flex items-center justify-center py-10">
+                <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             ) : error ? (
-              <div className="bg-destructive/10 p-4 rounded-md text-destructive">
-                {error}
+              <div className="py-10 text-center text-muted-foreground">
+                <p>{error}</p>
+                <Button variant="outline" size="sm" onClick={fetchData} className="mt-2">
+                  Try Again
+                </Button>
+              </div>
+            ) : categories.length === 0 ? (
+              <div className="py-10 text-center text-muted-foreground">
+                <p>No categories found.</p>
+                <Link href="/admin/categories/new">
+                  <Button variant="outline" size="sm" className="mt-2">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add Your First Category
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {categories.slice(0, 5).map((category) => (
+                  <div key={category.id} className="flex items-center justify-between rounded-md border p-3">
+                    <div className="flex items-center gap-2">
+                      <FolderTree className="h-4 w-4 text-muted-foreground" />
+                      <span className="font-medium">{category.name}</span>
+                    </div>
+                    <span className="text-sm text-muted-foreground">{category.products.length} products</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+          <CardFooter>
+            <Link href="/admin/categories" className="w-full">
+              <Button variant="outline" className="w-full">
+                <FolderTree className="mr-2 h-4 w-4" />
+                Manage Categories
+              </Button>
+            </Link>
+          </CardFooter>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Recent Products</CardTitle>
+            <CardDescription>View and edit your product listings</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="flex items-center justify-center py-10">
+                <RefreshCw className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            ) : error ? (
+              <div className="py-10 text-center text-muted-foreground">
+                <p>{error}</p>
+                <Button variant="outline" size="sm" onClick={fetchData} className="mt-2">
+                  Try Again
+                </Button>
               </div>
             ) : products.length === 0 ? (
-              <div className="text-center p-8 text-muted-foreground">
-                <Package className="h-12 w-12 mx-auto mb-4 opacity-20" />
-                <p>No products found</p>
+              <div className="py-10 text-center text-muted-foreground">
+                <p>No products found.</p>
+                <Link href="/admin/products/new">
+                  <Button variant="outline" size="sm" className="mt-2">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add Your First Product
+                  </Button>
+                </Link>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
