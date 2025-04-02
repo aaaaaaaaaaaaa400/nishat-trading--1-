@@ -72,7 +72,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-primary/10 to-transparent blur-2xl animate-pulse-slow" />
                   <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-primary/20 transition-all duration-500 hover:shadow-primary/20 hover:scale-[1.02]">
                     <Image
-                      src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
+                      src="/rice-expor.jpg"
                       alt="Premium rice products from Nishat Trading"
                       fill
                       priority
@@ -116,7 +116,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
+                    src="/fields.jpg"
                     alt="Premium Rice Varieties"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -144,7 +144,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-150">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1517262300305-ac8ac23bc72e?q=80&w=2070&auto=format&fit=crop"
+                    src="rock-salt.jpg"
                     alt="Premium Himalayan Salt"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -172,7 +172,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1573408301851-47cedcca5b36?q=80&w=2069&auto=format&fit=crop"
+                    src="/necklace.jpg"
                     alt="Premium Gold Jewelry"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"

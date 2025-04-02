@@ -50,7 +50,7 @@
         "categoryId": "salt",
         "name": "Al Razak Pink Salt",
         "description": "Premium mineral-rich pink salt from the Himalayan mountains with trace minerals and a distinctive color.",
-        "image": "https://images.unsplash.com/photo-1660650737271-7c292a646922?q=80&w=2070&auto=format&fit=crop",
+        "image": "/pinksalt.jpg",
         "origin": "Pakistan",
         "packaging": "1kg, 5kg, 25kg bags"
       }
@@ -65,7 +65,7 @@
         "categoryId": "gold",
         "name": "Gold Jewelry Wholesale",
         "description": "Fine gold jewelry pieces and precious stones for wholesale buyers.",
-        "image": "https://images.unsplash.com/photo-1573408301851-47cedcca5b36?q=80&w=2069&auto=format&fit=crop",
+        "image": "/gold.jpg",
         "origin": "Various",
         "packaging": "Custom packaging available"
       },
@@ -74,7 +74,7 @@
         "categoryId": "gold",
         "name": "Gold Ornaments",
         "description": "Exquisite gold ornaments crafted with precision and attention to detail.",
-        "image": "https://images.unsplash.com/photo-1531995811006-35cb42e1a022?q=80&w=2070&auto=format&fit=crop",
+        "image": "/ornament.jpg",
         "origin": "Various",
         "packaging": "Custom packaging available"
       },
@@ -83,7 +83,7 @@
         "categoryId": "gold",
         "name": "Precious Stones",
         "description": "High-quality precious stones and gems for jewelry manufacturing.",
-        "image": "https://images.unsplash.com/photo-1511797663913-0fa4736d0d9f?q=80&w=2069&auto=format&fit=crop",
+        "image": "/stone.jpg",
         "origin": "Various",
         "packaging": "Secure packaging with certification"
       }

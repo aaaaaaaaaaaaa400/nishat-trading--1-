@@ -71,11 +71,10 @@ export default function AboutPage() {
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <Tabs defaultValue="story" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8">
+              <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-12">
                 <TabsTrigger value="story">Our Story</TabsTrigger>
                 <TabsTrigger value="mission">Mission & Values</TabsTrigger>
                 <TabsTrigger value="team">Our Team</TabsTrigger>
-                <TabsTrigger value="global">Global Presence</TabsTrigger>
               </TabsList>
 
               <TabsContent value="story" className="space-y-8">
@@ -84,7 +83,7 @@ export default function AboutPage() {
                     <div className="relative w-full max-w-[550px] aspect-square">
                       <div className="absolute inset-0 rounded-lg overflow-hidden shadow-xl">
                         <Image
-                          src="https://images.unsplash.com/photo-1563906267088-b029e7101114?q=80&w=2070&auto=format&fit=crop"
+                          src="/ourstory.png"
                           width={550}
                           height={550}
                           alt="Company headquarters"
@@ -159,7 +158,7 @@ export default function AboutPage() {
                     <div className="relative w-full max-w-[550px] aspect-square">
                       <div className="absolute inset-0 rounded-lg overflow-hidden shadow-xl">
                         <Image
-                          src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?q=80&w=2069&auto=format&fit=crop"
+                          src="/bags.jpg"
                           width={550}
                           height={550}
                           alt="Company mission"
@@ -237,11 +236,11 @@ export default function AboutPage() {
                         "Sarah oversees our day-to-day operations, ensuring efficiency and excellence across all departments.",
                     },
                     {
-                      name: "Rajiv Patel",
+                      name: "Steve Anderson",
                       position: "Head of Sourcing",
                       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop",
                       bio:
-                        "Rajiv leads our sourcing team, building relationships with producers to ensure the highest quality products.",
+                        "Steve leads our sourcing team, building relationships with producers to ensure the highest quality products.",
                     },
                   ].map((member, index) => (
                     <Card key={index}>
@@ -266,59 +265,26 @@ export default function AboutPage() {
                   ))}
                 </div>
               </TabsContent>
-
-              <TabsContent value="global" className="space-y-8">
-                <div className="space-y-4 text-center">
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Our Global Presence</h2>
-                  <p className="text-muted-foreground max-w-[800px] mx-auto">
-                    With operations spanning across multiple continents, we serve clients in over 30 countries worldwide.
-                  </p>
-                </div>
-
-                <div className="relative overflow-hidden rounded-xl">
-                  <Image
-                    src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5b1?q=80&w=2833&auto=format&fit=crop"
-                    alt="World map"
-                    width={1200}
-                    height={600}
-                    className="w-full object-cover"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col space-y-3">
-                        <h3 className="text-xl font-bold">Headquarters</h3>
-                        <p className="text-muted-foreground">
-                          71-75 Shelton Street, Covent Garden, London, United Kingdom, WC2H 9JQ
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col space-y-3">
-                        <h3 className="text-xl font-bold">Sourcing Offices</h3>
-                        <p className="text-muted-foreground">
-                          Pakistan (Rice & Salt) • Thailand (Rice) • India (Rice & Jewelry)
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col space-y-3">
-                        <h3 className="text-xl font-bold">Distribution Network</h3>
-                        <p className="text-muted-foreground">
-                          Europe • Middle East • North America • Asia • Africa
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
             </Tabs>
+          </div>
+        </section>
+
+        <section className="w-full py-12 md:py-24 bg-primary/5">
+          <div className="container px-4 md:px-6">
+            <div className="flex justify-center">
+              <Card className="max-w-2xl w-full bg-primary/5 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex flex-col space-y-4">
+                    <h3 className="text-2xl font-bold text-center">Our Headquarters</h3>
+                    <p className="text-muted-foreground text-center text-lg">
+                      71-75 Shelton Street, Covent Garden<br />
+                      London, United Kingdom<br />
+                      WC2H 9JQ
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </section>
 
