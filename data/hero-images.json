@@ -5,7 +5,13 @@
     "description": "Quality products from Pakistan to the world",
     "imagePath": "/herosection.png",
     "isActive": true,
-    "order": 1
+    "order": "1",
+    "page": "home",
+    "backgroundType": "image",
+    "backgroundColor": "",
+    "gradientFrom": "",
+    "gradientTo": "",
+    "gradientDirection": "to-r"
   },
   {
     "title": "s",
@@ -13,6 +19,32 @@
     "imagePath": "/uploads/4b024981-368f-4011-8973-8c870a8c9f20.jpg",
     "isActive": true,
     "order": "2",
-    "id": "s-107248"
+    "id": "s-107248",
+    "page": "home",
+    "backgroundType": "image"
+  },
+  {
+    "title": "salt",
+    "description": "k",
+    "imagePath": "/uploads/bdf67109-455f-4a79-b98c-253d8caf5e1d.jpg",
+    "isActive": true,
+    "order": "3",
+    "page": "home",
+    "id": "salt-484197",
+    "backgroundType": "image"
+  },
+  {
+    "title": "a",
+    "description": "a",
+    "imagePath": "",
+    "isActive": true,
+    "order": 99,
+    "page": "contact",
+    "backgroundType": "solid",
+    "backgroundColor": "#ae491e",
+    "gradientFrom": "",
+    "gradientTo": "",
+    "gradientDirection": "to-r",
+    "id": "a-942238"
   }
 ]

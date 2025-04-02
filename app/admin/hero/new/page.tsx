@@ -10,9 +10,11 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/components/ui/use-toast";
+import { HeroPage } from "@/lib/hero";
 import FileUpload from "@/components/ui/file-upload";
 
 export default function NewHeroImagePage() {
@@ -24,7 +26,8 @@ export default function NewHeroImagePage() {
     description: "",
     imagePath: "",
     isActive: true,
-    order: 99
+    order: 99,
+    page: "home" as HeroPage
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +39,10 @@ export default function NewHeroImagePage() {
 
   const handleSwitchChange = (checked: boolean) => {
     setFormData({ ...formData, isActive: checked });
+  };
+
+  const handlePageChange = (value: string) => {
+    setFormData({ ...formData, page: value as HeroPage });
   };
 
   const handleFileUpload = (filePath: string) => {
@@ -99,7 +106,7 @@ export default function NewHeroImagePage() {
         <CardHeader>
           <CardTitle>Hero Image Information</CardTitle>
           <CardDescription>
-            Add a new image to your homepage hero section. Required fields are marked with an asterisk (*).
+            Add a new image to your website hero sections. Required fields are marked with an asterisk (*).
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -146,13 +153,27 @@ export default function NewHeroImagePage() {
             />
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={handleSwitchChange}
-                />
-                <Label htmlFor="isActive">Active (visible on homepage)</Label>
+              <div className="space-y-2">
+                <Label htmlFor="page">
+                  Page <span className="text-destructive">*</span>
+                </Label>
+                <Select 
+                  value={formData.page} 
+                  onValueChange={handlePageChange}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a page" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="home">Home Page</SelectItem>
+                    <SelectItem value="about">About Page</SelectItem>
+                    <SelectItem value="products">Products Page</SelectItem>
+                    <SelectItem value="contact">Contact Page</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Select which page this hero image will appear on
+                </p>
               </div>
               
               <div className="space-y-2">
@@ -170,6 +191,15 @@ export default function NewHeroImagePage() {
                   Lower numbers will appear first in the sequence
                 </p>
               </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={handleSwitchChange}
+              />
+              <Label htmlFor="isActive">Active (visible on website)</Label>
             </div>
           </form>
         </CardContent>

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, ArrowLeft, ArrowDown, ArrowUp, Loader2, Plus, Trash, Pencil, Eye } from "lucide-react";
@@ -25,6 +26,22 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { HeroImage } from "@/lib/hero";
+
+// A map of page types to display names
+const pageNames: Record<string, string> = {
+  home: "Home",
+  about: "About",
+  products: "Products",
+  contact: "Contact"
+};
+
+// A map of page types to badge colors
+const pageBadgeColors: Record<string, string> = {
+  home: "bg-blue-500",
+  about: "bg-green-500",
+  products: "bg-amber-500",
+  contact: "bg-purple-500"
+};
 
 export default function HeroImagesPage() {
   const router = useRouter();
@@ -162,25 +179,45 @@ export default function HeroImagesPage() {
     }
   };
   
-  const moveUp = (index: number) => {
+  const moveUp = (index: number, page: string) => {
     if (index === 0) return;
     const currentImage = heroImages[index];
-    const aboveImage = heroImages[index - 1];
+    const aboveImage = heroImages.filter(img => img.page === page)[index - 1];
     
     if (currentImage && aboveImage) {
       updateOrder(currentImage.id, aboveImage.order - 1);
     }
   };
   
-  const moveDown = (index: number) => {
-    if (index === heroImages.length - 1) return;
-    const currentImage = heroImages[index];
-    const belowImage = heroImages[index + 1];
+  const moveDown = (index: number, page: string) => {
+    const pageImages = heroImages.filter(img => img.page === page);
+    if (index === pageImages.length - 1) return;
+    
+    const currentImage = pageImages[index];
+    const belowImage = pageImages[index + 1];
     
     if (currentImage && belowImage) {
       updateOrder(currentImage.id, belowImage.order + 1);
     }
   };
+
+  // Group images by page for better organization
+  const groupedImages = heroImages.reduce((acc, image) => {
+    const page = image.page || 'home'; // Default to home if page is missing
+    if (!acc[page]) {
+      acc[page] = [];
+    }
+    acc[page].push(image);
+    return acc;
+  }, {} as Record<string, HeroImage[]>);
+
+  // Sort images by order within each page group
+  Object.keys(groupedImages).forEach(page => {
+    groupedImages[page].sort((a, b) => a.order - b.order);
+  });
+
+  // Order of pages to display
+  const pageOrder = ['home', 'about', 'products', 'contact'];
 
   return (
     <div className="space-y-6">
@@ -205,7 +242,7 @@ export default function HeroImagesPage() {
         <CardHeader>
           <CardTitle>Manage Hero Section Images</CardTitle>
           <CardDescription>
-            Add, edit, and organize the images that appear in the hero section of your homepage.
+            Add, edit, and organize the images that appear in the hero sections across your website.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -233,90 +270,108 @@ export default function HeroImagesPage() {
               </Link>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px]">Image</TableHead>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead className="w-[100px] text-center">Active</TableHead>
-                  <TableHead className="w-[100px] text-center">Order</TableHead>
-                  <TableHead className="w-[150px] text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {heroImages
-                  .sort((a, b) => a.order - b.order)
-                  .map((image, index) => (
-                  <TableRow key={image.id}>
-                    <TableCell>
-                      <div className="relative h-16 w-24 bg-muted rounded overflow-hidden">
-                        <Image
-                          src={image.imagePath}
-                          alt={image.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium">{image.title}</TableCell>
-                    <TableCell className="max-w-[200px] truncate">{image.description}</TableCell>
-                    <TableCell className="text-center">
-                      <Switch
-                        checked={image.isActive}
-                        disabled={updating === image.id}
-                        onCheckedChange={() => toggleActive(image.id, image.isActive)}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center justify-center gap-2">
-                        <span className="w-6 text-center">{image.order}</span>
-                        <div className="flex flex-col">
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            disabled={index === 0 || updating !== null}
-                            onClick={() => moveUp(index)}
-                            className="h-6 w-6"
-                          >
-                            <ArrowUp className="h-3 w-3" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            disabled={index === heroImages.length - 1 || updating !== null}
-                            onClick={() => moveDown(index)}
-                            className="h-6 w-6"
-                          >
-                            <ArrowDown className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-1">
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          asChild
-                        >
-                          <Link href={`/admin/hero/${image.id}`}>
-                            <Pencil className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => setDeleteId(image.id)}
-                        >
-                          <Trash className="h-4 w-4 text-destructive" />
-                        </Button>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="space-y-8">
+              {pageOrder.map(pageKey => {
+                const pageImages = groupedImages[pageKey] || [];
+                if (pageImages.length === 0) return null;
+                
+                return (
+                  <div key={pageKey} className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Badge className={`${pageBadgeColors[pageKey]} text-white`}>
+                        {pageNames[pageKey]} Page
+                      </Badge>
+                      <span className="text-sm text-muted-foreground">
+                        ({pageImages.length} {pageImages.length === 1 ? 'image' : 'images'})
+                      </span>
+                    </div>
+                    
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="w-[100px]">Image</TableHead>
+                          <TableHead>Title</TableHead>
+                          <TableHead>Description</TableHead>
+                          <TableHead className="w-[100px] text-center">Active</TableHead>
+                          <TableHead className="w-[100px] text-center">Order</TableHead>
+                          <TableHead className="w-[150px] text-right">Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {pageImages.map((image, index) => (
+                          <TableRow key={image.id}>
+                            <TableCell>
+                              <div className="relative h-16 w-24 bg-muted rounded overflow-hidden">
+                                <Image
+                                  src={image.imagePath}
+                                  alt={image.title}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium">{image.title}</TableCell>
+                            <TableCell className="max-w-[200px] truncate">{image.description}</TableCell>
+                            <TableCell className="text-center">
+                              <Switch
+                                checked={image.isActive}
+                                disabled={updating === image.id}
+                                onCheckedChange={() => toggleActive(image.id, image.isActive)}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center justify-center gap-2">
+                                <span className="w-6 text-center">{image.order}</span>
+                                <div className="flex flex-col">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    disabled={index === 0 || updating !== null}
+                                    onClick={() => moveUp(index, pageKey)}
+                                    className="h-6 w-6"
+                                  >
+                                    <ArrowUp className="h-3 w-3" />
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    disabled={index === pageImages.length - 1 || updating !== null}
+                                    onClick={() => moveDown(index, pageKey)}
+                                    className="h-6 w-6"
+                                  >
+                                    <ArrowDown className="h-3 w-3" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex justify-end gap-1">
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  asChild
+                                >
+                                  <Link href={`/admin/hero/${image.id}`}>
+                                    <Pencil className="h-4 w-4" />
+                                  </Link>
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => setDeleteId(image.id)}
+                                >
+                                  <Trash className="h-4 w-4 text-destructive" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </CardContent>
       </Card>

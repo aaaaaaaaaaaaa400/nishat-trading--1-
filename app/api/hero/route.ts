@@ -2,16 +2,30 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getAllHeroImages,
   getActiveHeroImages,
-  addHeroImage
+  getHeroImagesForPage,
+  addHeroImage,
+  HeroPage
 } from "@/lib/hero";
 
-// GET - Get all hero images or just active ones
+// GET - Get hero images with filtering options
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const activeOnly = searchParams.get('active') === 'true';
+    const page = searchParams.get('page') as HeroPage | null;
     
-    const heroImages = activeOnly ? getActiveHeroImages() : getAllHeroImages();
+    let heroImages;
+    
+    if (page) {
+      // Get images for a specific page
+      heroImages = getHeroImagesForPage(page, activeOnly);
+    } else if (activeOnly) {
+      // Get all active images
+      heroImages = getActiveHeroImages();
+    } else {
+      // Get all images
+      heroImages = getAllHeroImages();
+    }
     
     return NextResponse.json({ heroImages }, { status: 200 });
   } catch (error) {
@@ -47,13 +61,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate page value if provided
+    if (imageData.page && !['home', 'about', 'products', 'contact'].includes(imageData.page)) {
+      return NextResponse.json(
+        { error: "Invalid page value. Must be one of: home, about, products, contact" },
+        { status: 400 }
+      );
+    }
+
     // Add the hero image
     const newImage = addHeroImage({
       title: imageData.title,
       description: imageData.description || "",
       imagePath: imageData.imagePath,
       isActive: imageData.isActive !== undefined ? imageData.isActive : true,
-      order: imageData.order !== undefined ? imageData.order : 99
+      order: imageData.order !== undefined ? imageData.order : 99,
+      page: imageData.page || "home" // Default to home page
     });
     
     return NextResponse.json(

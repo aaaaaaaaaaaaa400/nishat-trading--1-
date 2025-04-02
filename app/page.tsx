@@ -20,7 +20,7 @@ export default function HomePage() {
     const fetchHeroImages = async () => {
       try {
         setLoading(true);
-        const response = await fetch("/api/hero?active=true");
+        const response = await fetch("/api/hero?active=true&page=home");
         
         if (!response.ok) {
           throw new Error("Failed to fetch hero images");
@@ -40,7 +40,8 @@ export default function HomePage() {
             description: "Quality products from Pakistan to the world",
             imagePath: "/herosection.png",
             isActive: true,
-            order: 1
+            order: 1,
+            page: "home"
           }]);
         }
       } catch (error) {
@@ -52,7 +53,8 @@ export default function HomePage() {
           description: "Quality products from Pakistan to the world",
           imagePath: "/herosection.png",
           isActive: true,
-          order: 1
+          order: 1,
+          page: "home"
         }]);
       } finally {
         setLoading(false);

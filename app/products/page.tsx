@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronDown, RefreshCw } from "lucide-react";
 import { Product, Category } from "@/lib/products";
+import { HeroImage } from "@/lib/hero";
 
 export default function ProductsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -20,6 +21,8 @@ export default function ProductsPage() {
   const [visibleProductCounts, setVisibleProductCounts] = useState<Record<string, number>>({
     all: 4
   });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,6 +60,65 @@ export default function ProductsPage() {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    // Fetch hero images from API
+    const fetchHeroImages = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/hero?active=true&page=products");
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch hero images");
+        }
+        
+        const data = await response.json();
+        
+        if (data.heroImages && data.heroImages.length > 0) {
+          // Sort by order just to be safe
+          const sortedImages = data.heroImages.sort((a: HeroImage, b: HeroImage) => a.order - b.order);
+          setHeroImages(sortedImages);
+        } else {
+          // Fallback to default image if no images found
+          setHeroImages([{
+            id: "default",
+            title: "Our Products",
+            description: "Quality products from Pakistan to the world",
+            imagePath: "/herosection.png",
+            isActive: true,
+            order: 1,
+            page: "products"
+          }]);
+        }
+      } catch (error) {
+        console.error("Error fetching hero images:", error);
+        // Fallback to default image on error
+        setHeroImages([{
+          id: "default",
+          title: "Our Products",
+          description: "Quality products from Pakistan to the world",
+          imagePath: "/herosection.png",
+          isActive: true,
+          order: 1,
+          page: "products"
+        }]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroImages();
+  }, []);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === heroImages.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   // Filter products by the selected category
   const filteredProducts = activeTab === "all" 
     ? products 
@@ -86,6 +148,34 @@ export default function ProductsPage() {
     <div className="flex flex-col min-h-screen">
       <MainHeader />
       <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
+          {heroImages.length > 0 && heroImages.map((image, index) => (
+            <div
+              key={image.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={image.imagePath.startsWith("http") ? image.imagePath : `/${image.imagePath}`}
+                alt={image.title}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  {image.title}
+                </h1>
+                <p className="text-xl md:text-2xl text-white max-w-3xl">
+                  {image.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </section>
+
         <section className="w-full py-8 md:py-12 lg:py-16 bg-muted relative overflow-hidden">
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">

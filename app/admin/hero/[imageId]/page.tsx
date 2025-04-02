@@ -10,12 +10,13 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/components/ui/use-toast";
 import FileUpload from "@/components/ui/file-upload";
-import { HeroImage } from "@/lib/hero";
+import { HeroImage, HeroPage } from "@/lib/hero";
 
 export default function EditHeroImagePage() {
   const router = useRouter();
@@ -29,7 +30,8 @@ export default function EditHeroImagePage() {
     description: "",
     imagePath: "",
     isActive: true,
-    order: 1
+    order: 1,
+    page: "home"
   });
   
   const [loading, setLoading] = useState(true);
@@ -48,6 +50,12 @@ export default function EditHeroImagePage() {
         }
         
         const data = await response.json();
+        
+        // If the image doesn't have a page property, default to home
+        if (!data.page) {
+          data.page = "home";
+        }
+        
         setFormData(data);
       } catch (err) {
         console.error("Error fetching hero image:", err);
@@ -67,6 +75,10 @@ export default function EditHeroImagePage() {
 
   const handleSwitchChange = (checked: boolean) => {
     setFormData({ ...formData, isActive: checked });
+  };
+
+  const handlePageChange = (value: string) => {
+    setFormData({ ...formData, page: value as HeroPage });
   };
 
   const handleFileUpload = (filePath: string) => {
@@ -210,13 +222,27 @@ export default function EditHeroImagePage() {
             />
 
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={handleSwitchChange}
-                />
-                <Label htmlFor="isActive">Active (visible on homepage)</Label>
+              <div className="space-y-2">
+                <Label htmlFor="page">
+                  Page <span className="text-destructive">*</span>
+                </Label>
+                <Select 
+                  value={formData.page} 
+                  onValueChange={handlePageChange}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a page" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="home">Home Page</SelectItem>
+                    <SelectItem value="about">About Page</SelectItem>
+                    <SelectItem value="products">Products Page</SelectItem>
+                    <SelectItem value="contact">Contact Page</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">
+                  Select which page this hero image will appear on
+                </p>
               </div>
               
               <div className="space-y-2">
@@ -234,6 +260,15 @@ export default function EditHeroImagePage() {
                   Lower numbers will appear first in the sequence
                 </p>
               </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="isActive"
+                checked={formData.isActive}
+                onCheckedChange={handleSwitchChange}
+              />
+              <Label htmlFor="isActive">Active (visible on website)</Label>
             </div>
           </form>
         </CardContent>

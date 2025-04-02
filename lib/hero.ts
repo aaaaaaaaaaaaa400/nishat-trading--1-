@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
+// Define page types for hero images
+export type HeroPage = 'home' | 'about' | 'products' | 'contact';
+
 // Define the HeroImage type
 export interface HeroImage {
   id: string;
@@ -9,6 +12,7 @@ export interface HeroImage {
   imagePath: string;
   isActive: boolean;
   order: number;
+  page: HeroPage; // Which page this hero image belongs to
 }
 
 // Path to our JSON file that will store the hero images
@@ -35,11 +39,34 @@ const initializeHeroImagesFile = () => {
         description: "Quality products from Pakistan to the world",
         imagePath: "/herosection.png",
         isActive: true,
-        order: 1
+        order: 1,
+        page: "home"
       }
     ];
     
     fs.writeFileSync(dataFilePath, JSON.stringify(initialData, null, 2));
+  } else {
+    // If file exists but doesn't have page property, migrate the data
+    try {
+      const data = fs.readFileSync(dataFilePath, 'utf8');
+      const images = JSON.parse(data);
+      
+      let needsMigration = false;
+      
+      // Check if any image is missing the page property
+      for (const image of images) {
+        if (!image.page) {
+          image.page = "home"; // Default to home page
+          needsMigration = true;
+        }
+      }
+      
+      if (needsMigration) {
+        fs.writeFileSync(dataFilePath, JSON.stringify(images, null, 2));
+      }
+    } catch (error) {
+      console.error("Error migrating hero images:", error);
+    }
   }
 };
 
@@ -51,10 +78,18 @@ export const getAllHeroImages = (): HeroImage[] => {
 };
 
 // Get active hero images (sorted by order)
-export const getActiveHeroImages = (): HeroImage[] => {
+export const getActiveHeroImages = (page?: HeroPage): HeroImage[] => {
   const images = getAllHeroImages();
   return images
-    .filter(image => image.isActive)
+    .filter(image => image.isActive && (page ? image.page === page : true))
+    .sort((a, b) => a.order - b.order);
+};
+
+// Get hero images for a specific page
+export const getHeroImagesForPage = (page: HeroPage, activeOnly: boolean = true): HeroImage[] => {
+  const images = getAllHeroImages();
+  return images
+    .filter(image => image.page === page && (activeOnly ? image.isActive : true))
     .sort((a, b) => a.order - b.order);
 };
 

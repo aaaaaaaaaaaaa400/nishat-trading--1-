@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link"
 import Image from "next/image"
 import { Award, Users, Globe, TrendingUp, Leaf } from "lucide-react"
@@ -8,8 +11,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { MainHeader } from "@/components/main-header"
 import { MainFooter } from "@/components/main-footer"
+import { HeroImage } from "@/lib/hero"
 
 export default function AboutPage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const milestones = [
     {
       year: "2005",
@@ -43,31 +51,98 @@ export default function AboutPage() {
     },
   ]
 
+  useEffect(() => {
+    // Fetch hero images from API
+    const fetchHeroImages = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/hero?active=true&page=about");
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch hero images");
+        }
+        
+        const data = await response.json();
+        
+        if (data.heroImages && data.heroImages.length > 0) {
+          // Sort by order just to be safe
+          const sortedImages = data.heroImages.sort((a: HeroImage, b: HeroImage) => a.order - b.order);
+          setHeroImages(sortedImages);
+        } else {
+          // Fallback to default image if no images found
+          setHeroImages([{
+            id: "default",
+            title: "About Us",
+            description: "Learn more about Nishat Trading",
+            imagePath: "/herosection.png",
+            isActive: true,
+            order: 1,
+            page: "about"
+          }]);
+        }
+      } catch (error) {
+        console.error("Error fetching hero images:", error);
+        // Fallback to default image on error
+        setHeroImages([{
+          id: "default",
+          title: "About Us",
+          description: "Learn more about Nishat Trading",
+          imagePath: "/herosection.png",
+          isActive: true,
+          order: 1,
+          page: "about"
+        }]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroImages();
+  }, []);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === heroImages.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <MainHeader />
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted relative overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-            <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-bl from-primary/20 to-transparent rounded-full"></div>
-            <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-primary/20 to-transparent rounded-full"></div>
-          </div>
-          <div className="container px-4 md:px-6 relative z-10">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2 max-w-3xl">
-                <div className="inline-flex px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full w-fit mb-4 shadow-md mx-auto">
-                  Established 2005
-                </div>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">About Nishat General Trading</h1>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-xl/relaxed">
-                  Your trusted partner in global agricultural products and gold jewelry wholesale since 2005.
+        {/* Hero Section */}
+        <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
+          {heroImages.length > 0 && heroImages.map((image, index) => (
+            <div
+              key={image.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={image.imagePath.startsWith("http") ? image.imagePath : `/${image.imagePath}`}
+                alt={image.title}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                  {image.title}
+                </h1>
+                <p className="text-xl md:text-2xl text-white max-w-3xl">
+                  {image.description}
                 </p>
               </div>
             </div>
-          </div>
+          ))}
         </section>
-
+        
+        {/* About Content */}
         <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <Tabs defaultValue="story" className="w-full">
