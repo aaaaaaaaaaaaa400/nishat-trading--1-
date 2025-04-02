@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Loader2, Package, Home, LogOut, User, FolderTree } from "lucide-react";
+import { Loader2, Package, Home, LogOut, User, FolderTree, Image } from "lucide-react";
 import { getCookie, deleteCookie } from "cookies-next";
 
 export default function AdminLayout({
@@ -105,6 +105,15 @@ export default function AdminLayout({
               >
                 <FolderTree className="mr-2 h-4 w-4" />
                 Categories
+              </Button>
+            </Link>
+            <Link href="/admin/hero">
+              <Button
+                variant={pathname.includes("/admin/hero") ? "secondary" : "ghost"}
+                className="w-full justify-start"
+              >
+                <Image className="mr-2 h-4 w-4" />
+                Hero Section
               </Button>
             </Link>
           </nav>

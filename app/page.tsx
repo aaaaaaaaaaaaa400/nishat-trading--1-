@@ -8,24 +8,69 @@ import { MainFooter } from "@/components/main-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Award, CheckCircle, Globe, LifeBuoy, ShieldCheck, Truck } from "lucide-react";
+import { HeroImage } from "@/lib/hero";
 
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const bgImages = [
-    "herosection.png",
-    "/rice-expor.jpg",
-    "/field.jpg",
-    "/rock-salt.jpg",
-    "/ornament.jpg",
-  ];
+  const [heroImages, setHeroImages] = useState<HeroImage[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Fetch hero images from API
+    const fetchHeroImages = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/hero?active=true");
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch hero images");
+        }
+        
+        const data = await response.json();
+        
+        if (data.heroImages && data.heroImages.length > 0) {
+          // Sort by order just to be safe
+          const sortedImages = data.heroImages.sort((a: HeroImage, b: HeroImage) => a.order - b.order);
+          setHeroImages(sortedImages);
+        } else {
+          // Fallback to default image if no images found
+          setHeroImages([{
+            id: "default",
+            title: "Nishat Trading",
+            description: "Quality products from Pakistan to the world",
+            imagePath: "/herosection.png",
+            isActive: true,
+            order: 1
+          }]);
+        }
+      } catch (error) {
+        console.error("Error fetching hero images:", error);
+        // Fallback to default image on error
+        setHeroImages([{
+          id: "default",
+          title: "Nishat Trading",
+          description: "Quality products from Pakistan to the world",
+          imagePath: "/herosection.png",
+          isActive: true,
+          order: 1
+        }]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroImages();
+  }, []);
+
+  useEffect(() => {
+    if (heroImages.length <= 1) return;
+    
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === bgImages.length - 1 ? 0 : prev + 1));
+      setCurrentSlide((prev) => (prev === heroImages.length - 1 ? 0 : prev + 1));
     }, 5000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -35,16 +80,16 @@ export default function HomePage() {
         <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden">
           {/* Sliding Background Images */}
           <div className="absolute inset-0 w-full h-full">
-            {bgImages.map((img, index) => (
+            {heroImages.map((image, index) => (
               <div 
-                key={index}
+                key={image.id}
                 className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
                   index === currentSlide ? "opacity-100" : "opacity-0"
                 }`}
               >
                 <Image
-                  src={img}
-                  alt={`Slide ${index + 1}`}
+                  src={image.imagePath}
+                  alt={image.title}
                   fill
                   className="object-cover"
                   priority={index === 0}

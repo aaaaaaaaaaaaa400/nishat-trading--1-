@@ -1,0 +1,18 @@
+[
+  {
+    "id": "main-hero",
+    "title": "Nishat Trading",
+    "description": "Quality products from Pakistan to the world",
+    "imagePath": "/herosection.png",
+    "isActive": true,
+    "order": 1
+  },
+  {
+    "title": "s",
+    "description": "s",
+    "imagePath": "/uploads/4b024981-368f-4011-8973-8c870a8c9f20.jpg",
+    "isActive": true,
+    "order": "2",
+    "id": "s-107248"
+  }
+]
