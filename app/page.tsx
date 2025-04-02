@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MainHeader } from "@/components/main-header";
@@ -9,88 +10,71 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Award, CheckCircle, Globe, LifeBuoy, ShieldCheck, Truck } from "lucide-react";
 
 export default function HomePage() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const bgImages = [
+    "herosection.png",
+    "/rice-expor.jpg",
+    "/field.jpg",
+    "/rock-salt.jpg",
+    "/ornament.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === bgImages.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen">
       <MainHeader />
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-muted">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-primary/20 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-primary/10 via-transparent to-transparent" />
-            <div className="absolute -top-[40%] -right-[10%] w-[70%] h-[70%] rounded-full bg-primary/10 blur-3xl animate-pulse-slow" />
-            <div className="absolute -bottom-[40%] -left-[10%] w-[70%] h-[70%] rounded-full bg-primary/10 blur-3xl animate-pulse-slower" />
+        <section className="relative w-full min-h-[85vh] flex items-center overflow-hidden">
+          {/* Sliding Background Images */}
+          <div className="absolute inset-0 w-full h-full">
+            {bgImages.map((img, index) => (
+              <div 
+                key={index}
+                className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                  index === currentSlide ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <Image
+                  src={img}
+                  alt={`Slide ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-background/30 backdrop-blur-sm" />
+              </div>
+            ))}
           </div>
           
           <div className="container px-4 md:px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter max-w-[700px] animate-in fade-in slide-in-from-left-4 duration-700">
-                    <span className="text-primary font-extrabold border-b border-primary/30">Premium Quality</span> Products for Global Markets
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl animate-in fade-in slide-in-from-left-4 duration-700 delay-200">
-                    Nishat Trading specializes in providing high-quality rice, salt, and jewelry to customers worldwide with exceptional service and competitive pricing.
-                  </p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4 animate-in fade-in slide-in-from-left-4 duration-700 delay-300">
-                  <Link href="/products">
-                    <Button size="lg" className="px-8 w-full sm:w-auto group relative overflow-hidden">
-                      <span className="relative z-10 flex items-center transition-transform duration-300 group-hover:translate-x-1">
-                        Explore Products
-                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                      </span>
-                      <span className="absolute inset-0 bg-primary/90 translate-y-[105%] group-hover:translate-y-0 transition-transform duration-300" />
-                    </Button>
-                  </Link>
-                  <Link href="/contact">
-                    <Button size="lg" variant="outline" className="px-8 w-full sm:w-auto group hover:border-primary/50 transition-all duration-300">
-                      <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">Contact Us</span>
-                    </Button>
-                  </Link>
-                </div>
-                <div className="flex items-center gap-4 pt-4 animate-in fade-in slide-in-from-left-4 duration-700 delay-400">
-                  <div className="flex -space-x-2 overflow-hidden">
-                    <div className="inline-block h-8 w-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center hover:scale-110 transition-transform">
-                      <CheckCircle className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="inline-block h-8 w-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Award className="h-4 w-4 text-primary" />
-                    </div>
-                    <div className="inline-block h-8 w-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Globe className="h-4 w-4 text-primary" />
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-medium">Trusted by businesses</span> in over 30 countries
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-center lg:justify-end">
-                <div className="relative w-full max-w-[500px] aspect-square animate-in fade-in slide-in-from-right-4 duration-700">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-primary/10 to-transparent blur-2xl animate-pulse-slow" />
-                  <div className="relative h-full w-full rounded-lg overflow-hidden shadow-2xl border border-primary/20 transition-all duration-500 hover:shadow-primary/20 hover:scale-[1.02]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
-                      alt="Premium rice products from Nishat Trading"
-                      fill
-                      priority
-                      className="object-cover transition-transform duration-700 hover:scale-110"
-                    />
-                  </div>
-                </div>
+            <div className="max-w-2xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter animate-in fade-in duration-700">
+                <span className="text-primary font-extrabold">Premium Quality</span> Products for Global Markets
+              </h1>
+              <p className="mt-4 text-muted-foreground md:text-xl max-w-[700px]  mx-auto animate-in fade-in duration-700 delay-200">
+                Nishat Trading specializes in providing high-quality rice, salt, and jewelry to customers worldwide with exceptional service and competitive pricing.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in duration-700 delay-300">
+                <Link href="/products">
+                  <Button size="lg" className="w-full sm:w-auto">
+                    Explore Products
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                    Contact Us
+                  </Button>
+                </Link>
               </div>
             </div>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" className="w-full">
-              <path
-                fill="currentColor"
-                fillOpacity="1"
-                d="M0,64L80,58.7C160,53,320,43,480,48C640,53,800,75,960,69.3C1120,64,1280,32,1360,16L1440,0L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z"
-              ></path>
-            </svg>
           </div>
         </section>
 
@@ -116,7 +100,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-100">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1586201375761-83865001e8ac?q=80&w=2070&auto=format&fit=crop"
+                    src="/fields.jpg"
                     alt="Premium Rice Varieties"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -144,7 +128,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-150">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1517262300305-ac8ac23bc72e?q=80&w=2070&auto=format&fit=crop"
+                    src="/rock-salt.jpg"
                     alt="Premium Himalayan Salt"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -172,7 +156,7 @@ export default function HomePage() {
               <Card className="group overflow-hidden border-primary/20 hover:border-primary transition-all duration-150 hover:shadow-lg transform-gpu hover:-translate-y-1 animate-in fade-in-up delay-200">
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1573408301851-47cedcca5b36?q=80&w=2069&auto=format&fit=crop"
+                    src="/necklace.jpg"
                     alt="Premium Gold Jewelry"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -377,11 +361,9 @@ export default function HomePage() {
           font-weight: 800;
         }
         
-        /* Dark mode enhancements */
-        @media (prefers-color-scheme: dark) {
-          .text-shimmer {
-            color: #D4AF37;
-          }
+        /* Light mode color always applied */
+        .text-shimmer {
+          color: var(--primary);
         }
       `}</style>
     </div>

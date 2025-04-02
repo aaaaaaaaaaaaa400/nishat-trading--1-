@@ -26,8 +26,8 @@ export function verifyAdminCredentials(email: string, password: string): boolean
 export const ADMIN_COOKIE_OPTIONS = {
   // Cookie will expire in 7 days
   maxAge: 7 * 24 * 60 * 60,
-  // Prevents client-side JavaScript from accessing the cookie
-  httpOnly: true,
+  // Allow client-side JavaScript to access the cookie for auth checks
+  httpOnly: false,
   // Only send cookie over HTTPS in production
   secure: process.env.NODE_ENV === 'production',
   // Restrict cookie to this domain
