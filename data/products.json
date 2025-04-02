@@ -53,6 +53,15 @@
         "image": "/pinksalt.jpg",
         "origin": "Pakistan",
         "packaging": "1kg, 5kg, 25kg bags"
+      },
+      {
+        "name": "HIPPO",
+        "categoryId": "salt",
+        "description": "A",
+        "image": "/uploads/b0c6b549-c35d-4ac8-8e49-b512323f83ee.jpg",
+        "origin": "DADAD",
+        "packaging": "E3434",
+        "id": "hippo"
       }
     ]
   },

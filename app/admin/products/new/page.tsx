@@ -13,6 +13,7 @@ import { Category } from "@/lib/products";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
+import FileUpload from "@/components/ui/file-upload";
 
 export default function NewProductPage() {
   const router = useRouter();
@@ -57,6 +58,10 @@ export default function NewProductPage() {
 
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileUpload = (filePath: string) => {
+    setFormData((prev) => ({ ...prev, image: filePath }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -174,19 +179,10 @@ export default function NewProductPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
-              <Input
-                id="image"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg or /image.png for local images"
-              />
-              <p className="text-sm text-muted-foreground">
-                Enter a URL or local path (like /sellarice.png for images in the public folder)
-              </p>
-            </div>
+            <FileUpload 
+              onFileUpload={handleFileUpload}
+              currentImage={formData.image} 
+            />
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">

@@ -14,6 +14,7 @@ import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
 import { Product, Category } from "@/lib/products";
+import FileUpload from "@/components/ui/file-upload";
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -74,6 +75,10 @@ export default function EditProductPage() {
 
   const handleSelectChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileUpload = (filePath: string) => {
+    setFormData((prev) => ({ ...prev, image: filePath }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -223,19 +228,11 @@ export default function EditProductPage() {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="image">Image URL</Label>
-              <Input
-                id="image"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
-                placeholder="https://example.com/image.jpg or /image.png for local images"
-              />
-              <p className="text-sm text-muted-foreground">
-                Enter a URL or local path (like /sellarice.png for images in the public folder)
-              </p>
-            </div>
+            <FileUpload 
+              onFileUpload={handleFileUpload}
+              currentImage={formData.image}
+              label="Product Image"
+            />
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -274,10 +271,10 @@ export default function EditProductPage() {
             {submitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
+                Updating...
               </>
             ) : (
-              "Save Changes"
+              "Update Product"
             )}
           </Button>
         </CardFooter>
