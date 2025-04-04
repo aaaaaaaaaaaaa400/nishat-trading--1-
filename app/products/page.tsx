@@ -158,7 +158,9 @@ export default function ProductsPage() {
               }`}
             >
               <Image
-                src={image.imagePath.startsWith("http") ? image.imagePath : `/${image.imagePath}`}
+                src={image.imagePath.startsWith("http") || image.imagePath.startsWith("/") 
+                    ? image.imagePath 
+                    : `/${image.imagePath}`}
                 alt={image.title}
                 fill
                 className="object-cover"
@@ -166,10 +168,10 @@ export default function ProductsPage() {
               />
               <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  {image.title}
+                  Our Products
                 </h1>
                 <p className="text-xl md:text-2xl text-white max-w-3xl">
-                  {image.description}
+                  Quality products from Pakistan to the world
                 </p>
               </div>
             </div>

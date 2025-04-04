@@ -90,7 +90,9 @@ export default function HomePage() {
                 }`}
               >
                 <Image
-                  src={image.imagePath}
+                  src={image.imagePath.startsWith("http") || image.imagePath.startsWith("/") 
+                      ? image.imagePath 
+                      : `/${image.imagePath}`}
                   alt={image.title}
                   fill
                   className="object-cover"
@@ -106,7 +108,7 @@ export default function HomePage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter animate-in fade-in duration-700">
                 <span className="text-primary font-extrabold">Premium Quality</span> Products for Global Markets
               </h1>
-              <p className="mt-4 text-muted-foreground md:text-xl max-w-[700px]  mx-auto animate-in fade-in duration-700 delay-200">
+              <p className="mt-4 text-lg md:text-xl max-w-[700px] mx-auto animate-in fade-in duration-700 delay-200 font-semibold text-gray-700 dark:text-white">
                 Nishat Trading specializes in providing high-quality rice, salt, and jewelry to customers worldwide with exceptional service and competitive pricing.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in duration-700 delay-300">
@@ -401,14 +403,6 @@ export default function HomePage() {
           }
         }
         
-        .text-shimmer {
-          position: relative;
-          display: inline-block;
-          color: var(--primary);
-          font-weight: 800;
-        }
-        
-        /* Light mode color always applied */
         .text-shimmer {
           color: var(--primary);
         }

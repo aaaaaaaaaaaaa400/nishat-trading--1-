@@ -34,17 +34,39 @@
     "backgroundType": "image"
   },
   {
-    "title": "a",
-    "description": "a",
-    "imagePath": "",
+    "title": "m",
+    "description": "",
+    "imagePath": "/uploads/4af0e0f4-d8f0-4bcf-81ae-0fce2c5d9730.jpg",
+    "isActive": true,
+    "order": "1",
+    "page": "products",
+    "id": "m-160858"
+  },
+  {
+    "title": "q",
+    "description": "",
+    "imagePath": "/uploads/5005274c-1c75-4597-95e6-ab56373e9546.jpg",
     "isActive": true,
     "order": 99,
+    "page": "home",
+    "id": "q-200693"
+  },
+  {
+    "title": "c",
+    "description": "",
+    "imagePath": "/uploads/69c94bc0-4261-4be7-8a7d-af8ae407cfa9.png",
+    "isActive": true,
+    "order": "1",
+    "page": "about",
+    "id": "c-615746"
+  },
+  {
+    "title": "w",
+    "description": "",
+    "imagePath": "/uploads/e45c3d6c-a92b-417d-bdf1-25447a73e153.jpeg",
+    "isActive": true,
+    "order": "1",
     "page": "contact",
-    "backgroundType": "solid",
-    "backgroundColor": "#ae491e",
-    "gradientFrom": "",
-    "gradientTo": "",
-    "gradientDirection": "to-r",
-    "id": "a-942238"
+    "id": "w-834509"
   }
 ]

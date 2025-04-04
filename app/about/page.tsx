@@ -124,7 +124,9 @@ export default function AboutPage() {
               }`}
             >
               <Image
-                src={image.imagePath.startsWith("http") ? image.imagePath : `/${image.imagePath}`}
+                src={image.imagePath.startsWith("http") || image.imagePath.startsWith("/") 
+                    ? image.imagePath 
+                    : `/${image.imagePath}`}
                 alt={image.title}
                 fill
                 className="object-cover"
@@ -132,10 +134,10 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  {image.title}
+                  About Us
                 </h1>
                 <p className="text-xl md:text-2xl text-white max-w-3xl">
-                  {image.description}
+                  Learn more about Nishat Trading
                 </p>
               </div>
             </div>
@@ -149,7 +151,7 @@ export default function AboutPage() {
               <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-12">
                 <TabsTrigger value="story">Our Story</TabsTrigger>
                 <TabsTrigger value="mission">Mission & Values</TabsTrigger>
-                <TabsTrigger value="team">Our Team</TabsTrigger>
+                <TabsTrigger value="policy">Our Policy</TabsTrigger>
               </TabsList>
 
               <TabsContent value="story" className="space-y-8">
@@ -285,59 +287,73 @@ export default function AboutPage() {
                 </div>
               </TabsContent>
 
-              <TabsContent value="team" className="space-y-8">
+              <TabsContent value="policy" className="space-y-8">
                 <div className="space-y-4 text-center">
-                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Meet Our Leadership Team</h2>
+                  <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Our Policies</h2>
                   <p className="text-muted-foreground max-w-[800px] mx-auto">
-                    Our experienced team brings decades of combined expertise in international trade, agriculture, jewelry, and
-                    business development.
+                    At Nishat Trading, we are committed to upholding the highest standards of business practices, quality control, and ethical responsibility.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                  {[
-                    {
-                      name: "Ahmed Khan",
-                      position: "Chief Executive Officer",
-                      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop",
-                      bio:
-                        "With over 20 years of experience in international trade, Ahmed leads our global strategy and operations.",
-                    },
-                    {
-                      name: "Sarah Johnson",
-                      position: "Chief Operations Officer",
-                      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1976&auto=format&fit=crop",
-                      bio:
-                        "Sarah oversees our day-to-day operations, ensuring efficiency and excellence across all departments.",
-                    },
-                    {
-                      name: "Steve Anderson",
-                      position: "Head of Sourcing",
-                      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop",
-                      bio:
-                        "Steve leads our sourcing team, building relationships with producers to ensure the highest quality products.",
-                    },
-                  ].map((member, index) => (
-                    <Card key={index}>
-                      <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center space-y-4">
-                          <div className="relative h-32 w-32 rounded-full overflow-hidden">
-                            <Image
-                              src={member.image}
-                              alt={member.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold">{member.name}</h3>
-                            <p className="text-sm text-primary font-medium">{member.position}</p>
-                            <p className="text-muted-foreground mt-2">{member.bio}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
+                <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center mb-10">
+                  <div className="flex items-center justify-center">
+                    <div className="relative w-full max-w-[550px] aspect-square">
+                      <div className="absolute inset-0 rounded-lg overflow-hidden shadow-xl">
+                        <Image
+                          src="/quality.jpg"
+                          width={550}
+                          height={550}
+                          alt="Quality assurance"
+                          className="object-cover h-full w-full"
+                        />
+                      </div>
+                      <div className="absolute -bottom-5 -left-5 w-20 h-20 bg-primary rounded-full"></div>
+                      <div className="absolute -top-5 -right-5 w-16 h-16 bg-primary/30 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col justify-center space-y-4">
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-bold">Quality Assurance</h3>
+                      <p className="text-muted-foreground">
+                        Every product we offer undergoes rigorous quality control checks at multiple stages. From sourcing to delivery, we maintain stringent standards to ensure our customers receive only the finest products. Our Al Razak rice varieties, Pink Salt, and jewelry items are carefully inspected to meet international quality benchmarks.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <Card className="bg-background shadow-md">
+                    <CardContent className="p-6 space-y-4">
+                      <h3 className="text-xl font-bold border-b pb-2">Ethical Sourcing</h3>
+                      <p className="text-muted-foreground">
+                        We partner with farmers and suppliers who adhere to fair labor practices and ethical standards. Our sourcing team regularly visits production sites to ensure compliance with our ethical guidelines and to maintain transparency throughout our supply chain.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-background shadow-md">
+                    <CardContent className="p-6 space-y-4">
+                      <h3 className="text-xl font-bold border-b pb-2">Environmental Responsibility</h3>
+                      <p className="text-muted-foreground">
+                        Sustainability is at the core of our operations. We actively promote eco-friendly agricultural practices, minimize waste in our packaging, and continuously work to reduce our carbon footprint through optimized logistics and sustainable operations.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-background shadow-md">
+                    <CardContent className="p-6 space-y-4">
+                      <h3 className="text-xl font-bold border-b pb-2">Customer Commitment</h3>
+                      <p className="text-muted-foreground">
+                        We believe in building lasting relationships with our customers through transparency, reliability, and exceptional service. Our flexible approach allows us to accommodate specific requirements, and we maintain open communication throughout the business relationship.
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-background shadow-md">
+                    <CardContent className="p-6 space-y-4">
+                      <h3 className="text-xl font-bold border-b pb-2">Compliance & Standards</h3>
+                      <p className="text-muted-foreground">
+                        We strictly adhere to international trade regulations, food safety standards, and quality certifications relevant to our product lines. Our documentation and processes are designed to ensure smooth customs clearance and regulatory compliance in all markets we serve.
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
               </TabsContent>
             </Tabs>

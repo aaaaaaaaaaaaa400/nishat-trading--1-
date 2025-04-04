@@ -2,11 +2,8 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
-import { Mail, Phone, MapPin, CheckCircle } from "lucide-react"
-import emailjs from '@emailjs/browser';
+import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Info } from "lucide-react"
 import Image from "next/image";
-import { toast } from "sonner";
-import { z } from "zod";
 import { MainHeader } from "@/components/main-header"
 import { MainFooter } from "@/components/main-footer"
 import { Button } from "@/components/ui/button"
@@ -14,9 +11,11 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { HeroImage } from "@/lib/hero"
+import { z } from "zod";
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -116,26 +115,27 @@ export default function ContactPage() {
   }, [heroImages.length]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     setEmailError("");
 
-    // Prepare email template parameters
-    const templateParams = {
-      from_name: `${values.firstName} ${values.lastName}`,
-      from_email: values.email,
-      company: values.company,
-      message: values.message,
-      to_email: 'sale@nishat.uk',
-    };
-
-    // Send the email with EmailJS
-    emailjs.send('service_q7kk6qc', 'template_x8l0s6z', templateParams, 'm4CmCVEOyvktzDMEs')
-      .then((response) => {
-        console.log('Email sent successfully:', response);
-        setIsSubmitting(false);
+    // Send form data to our API endpoint
+    fetch('/api/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to send email');
+        }
+        
         setIsSubmitted(true);
         form.reset();
-
+        
         // Reset success message after 5 seconds
         setTimeout(() => {
           setIsSubmitted(false);
@@ -143,8 +143,10 @@ export default function ContactPage() {
       })
       .catch((error) => {
         console.error('Email error:', error);
+        setEmailError(error.message || "There was a problem sending your message. Please try again.");
+      })
+      .finally(() => {
         setIsSubmitting(false);
-        setEmailError("There was a problem sending your message. Please try again or contact us directly.");
       });
   }
 
@@ -161,7 +163,9 @@ export default function ContactPage() {
               }`}
             >
               <Image
-                src={image.imagePath.startsWith("http") ? image.imagePath : `/${image.imagePath}`}
+                src={image.imagePath.startsWith("http") || image.imagePath.startsWith("/") 
+                    ? image.imagePath 
+                    : `/${image.imagePath}`}
                 alt={image.title}
                 fill
                 className="object-cover"
@@ -169,10 +173,10 @@ export default function ContactPage() {
               />
               <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4">
                 <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                  {image.title}
+                  Contact Us
                 </h1>
                 <p className="text-xl md:text-2xl text-white max-w-3xl">
-                  {image.description}
+                  Get in touch with our team
                 </p>
               </div>
             </div>
@@ -194,13 +198,14 @@ export default function ContactPage() {
                   <Alert className="bg-green-50 border-green-200 mb-4">
                     <CheckCircle className="h-4 w-4 text-green-600" />
                     <AlertDescription className="text-green-600">
-                      Thank you for your message! It has been sent to our team at sale@nishat.uk. We will get back to you shortly.
+                      Thank you for your message! Our team has received your inquiry and will get back to you shortly.
                     </AlertDescription>
                   </Alert>
                 )}
 
                 {emailError && (
                   <Alert className="bg-red-50 border-red-200 mb-4">
+                    <AlertCircle className="h-4 w-4 text-red-600" />
                     <AlertDescription className="text-red-600">
                       {emailError} You can also email us directly at <a href="mailto:sale@nishat.uk" className="underline">sale@nishat.uk</a>
                     </AlertDescription>

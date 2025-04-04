@@ -92,10 +92,6 @@ export default function EditHeroImagePage() {
 
     try {
       // Validate required fields
-      if (!formData.title) {
-        throw new Error("Title is required");
-      }
-
       if (!formData.imagePath) {
         throw new Error("Image is required");
       }
@@ -189,15 +185,14 @@ export default function EditHeroImagePage() {
           <form id="hero-form" onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="title">
-                Title <span className="text-destructive">*</span>
+                Title
               </Label>
               <Input
                 id="title"
                 name="title"
                 value={formData.title}
                 onChange={handleInputChange}
-                placeholder="Enter a title for this image"
-                required
+                placeholder="Enter a title for this image (optional)"
               />
             </div>
 
