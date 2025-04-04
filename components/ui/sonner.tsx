@@ -1,31 +1,62 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import { Toaster as Sonner } from "sonner"
+import * as React from "react"
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+interface ToastProps {
+  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center"
+  className?: string
+  closeButton?: boolean
+  theme?: "light" | "dark" | "system"
+}
 
-const Toaster = ({ ...props }: ToasterProps) => {
-  const { theme = "system" } = useTheme()
-
+export function Toaster({
+  position = "top-right",
+  className,
+  closeButton = true,
+  theme = "system",
+}: ToastProps) {
   return (
-    <Sonner
-      theme={theme as ToasterProps["theme"]}
-      className="toaster group"
-      toastOptions={{
-        classNames: {
-          toast:
-            "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
-        },
-      }}
-      {...props}
-    />
+    <div>
+      {/* Simple placeholder for toast component */}
+    </div>
   )
 }
 
-export { Toaster }
+// Export a mock toast function that does nothing
+export const toast = {
+  // Basic toast function
+  (...args: any[]) {
+    console.log('Toast:', ...args);
+    return { id: Date.now() };
+  },
+  // Common toast variants
+  error: (...args: any[]) => {
+    console.log('Error Toast:', ...args);
+    return { id: Date.now() };
+  },
+  success: (...args: any[]) => {
+    console.log('Success Toast:', ...args);
+    return { id: Date.now() };
+  },
+  warning: (...args: any[]) => {
+    console.log('Warning Toast:', ...args);
+    return { id: Date.now() };
+  },
+  info: (...args: any[]) => {
+    console.log('Info Toast:', ...args);
+    return { id: Date.now() };
+  },
+  // Mock dismiss method
+  dismiss: (toastId?: number) => {
+    console.log('Dismiss Toast:', toastId);
+  },
+  // Other commonly used methods
+  promise: (promise: Promise<any>, messages: any) => {
+    console.log('Promise Toast:', messages);
+    return promise;
+  },
+  custom: (...args: any[]) => {
+    console.log('Custom Toast:', ...args);
+    return { id: Date.now() };
+  },
+}

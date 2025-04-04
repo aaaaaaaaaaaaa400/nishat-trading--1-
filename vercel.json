@@ -1,5 +1,10 @@
 {
   "buildCommand": "npm run build",
-  "installCommand": "npm install --legacy-peer-deps",
-  "framework": "nextjs"
+  "installCommand": "npm install --force --no-peer-deps",
+  "framework": "nextjs",
+  "skipBuildIf": {
+    "skipIfNoChanges": true
+  },
+  "ignoreCommand": "npm run build",
+  "devCommand": "npm run dev"
 } 
